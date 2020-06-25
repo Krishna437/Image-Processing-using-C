@@ -1,0 +1,68 @@
+When working with files, you need to declare a pointer of type file. This declaration is needed for communication between the file and program.
+FILE *fptr;
+
+Opening a file - for creation and edit
+--------------------------------------
+Opening a file is performed using the library function in the "stdio.h" header file: fopen().
+The syntax for opening a file in standard I/O is:
+ptr = fopen("fileopen","mode")
+For Example:
+fopen("E:\\cprogram\\newprogram.txt","w");
+fopen("E:\\cprogram\\oldprogram.bin","rb");
+•	Let's suppose the file newprogram.txt doesn't exist in the location E:\cprogram. The first function creates a new file named newprogram.txt and opens it for writing as per the mode 'w'.
+The writing mode allows you to create and edit (overwrite) the contents of the file.
+•	Now let's suppose the second binary file oldprogram.bin exists in the location E:\cprogram. The second function opens the existing file for reading in binary mode 'rb'.
+The reading mode only allows you to read the file, you cannot write into the file.
+
+Opening Modes in Standard I/O
+File Mode	    Meaning of Mode	                                                    During Inexistence of file
+r	            Open for reading.	                                                  If the file does not exist, fopen() returns NULL.
+rb	          Open for reading in binary mode.	                                  If the file does not exist, fopen() returns NULL.
+w	            Open for writing.                        	                          If the file exists, its contents are overwritten. If the file does not exist, it will be created.
+wb            Open for writing in binary mode.	                                  If the file exists, its contents are overwritten. If the file does not exist, it will be created.
+a             Open for append.i.e, Data is added to end of file.                	If the file does not exists, it will be created.
+ab	          Open for append in binary mode.i.e, Data is added to end of file.	  If the file does not exists, it will be created.
+r+	          Open for both reading and writing.                                 	If the file does not exist, fopen() returns NULL.
+rb+	          Open for both reading and writing in binary mode.	                  If the file does not exist, fopen() returns NULL.
+w+	          Open for both reading and writing.	                                If the file exists, its contents are overwritten. If the file does not exist, it will be created.
+wb+	          Open for both reading and writing in binary mode.	                  If the file exists, its contents are overwritten. If the file does not exist, it will be created.
+a+          	Open for both reading and appending.	                              If the file does not exists, it will be created.
+ab+	          Open for both reading and appending in binary mode.	                If the file does not exists, it will be created.
+
+
+Closing a File
+---------------
+The file (both text and binary) should be closed after reading/writing.
+Closing a file is performed using library function fclose().
+fclose(fptr); //fptr is the file pointer associated with file to be closed.
+
+
+Reading and writing to a text file
+----------------------------------
+For reading and writing to a text file, we use the functions fprintf() and fscanf().
+They are just the file versions of printf() and scanf(). The only difference is that, fprint and fscanf expects a pointer to the structure FILE.
+Example 1: Write to a text file using fprintf()
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{  
+   int num;
+   FILE *fptr;
+   fptr = fopen("C:\\program.txt","w");
+
+   if(fptr == NULL)
+   {
+      printf("Error!");   
+      exit(1);             
+   }
+   printf("Enter num: ");
+   scanf("%d",&num);
+
+   fprintf(fptr,"%d",num);
+   fclose(fptr);
+
+   return 0;
+}
+This program takes a number from user and stores in the file program.txt.
+After you compile and run this program, you can see a text file program.txt created in C drive of your computer. When you open the file, you can see the integer you entered.
